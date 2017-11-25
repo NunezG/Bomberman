@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Engine.h"
 #include "GameFramework/PlayerController.h"
 #include "BombermanPlayerController.generated.h"
 
@@ -19,6 +19,13 @@ protected:
 	virtual void PlayerTick(float DeltaTime) override;
 	virtual void SetupInputComponent() override;
 	// End PlayerController interface
+
+	//Movement function
+	void MoveForward(float axisValue);
+	void MoveRight(float axisValue);
+
+	//Action button function
+	void Use();
 };
 
 
