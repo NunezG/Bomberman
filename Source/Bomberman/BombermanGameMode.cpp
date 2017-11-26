@@ -21,10 +21,6 @@ ABombermanGameMode::ABombermanGameMode()
 
 void ABombermanGameMode::BeginPlay()
 {
-	//Populate columns and rows
-	//Read from file for the map data
-	ReadTileDataFromFile(1);
-
 	//Call parents begin play so that all events are propogated
 	Super::BeginPlay();
 }
