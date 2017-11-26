@@ -56,7 +56,7 @@ public:
 
 protected:
 	//Function to read tile data from file
-	//void ReadTileDataFromFile(int levelNumber);
+	void ReadTileDataFromFile(int32 levelNumber);
 
 	//Function to spawn blocks in their correct location
 	UFUNCTION(BlueprintCallable, Category = Tiling)

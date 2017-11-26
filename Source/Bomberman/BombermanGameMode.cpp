@@ -25,8 +25,30 @@ void ABombermanGameMode::BeginPlay()
 	//We are adding defaulted here because it will change later anyway
 	columns.AddDefaulted(5);
 
+	//Read from file for the map data
+	ReadTileDataFromFile(1);
+
 	//Call parents begin play so that all events are propogated
 	Super::BeginPlay();
+}
+
+void ABombermanGameMode::ReadTileDataFromFile(int32 levelNumber)
+{
+	//We are going to use the plugins folder for this because all contents of it are packaged in every build by default
+	//Get path to plugins folder and combine it with the int we get to make a level text file
+	FString levelName = FString::FromInt(levelNumber) + ".txt";
+	FString filePath = FPaths::GameContentDir() + "Maps/LevelData/" + levelName;
+
+	TArray<FString> fileData;
+	//Only go forward with this if level files exist, log result
+	if(FPaths::FileExists(filePath))
+	{
+		FFileHelper::LoadFileToStringArray(fileData, *filePath);
+	}
+	else
+	{
+		UE_LOG(LogLoad, Error, TEXT("File in LevelData not found"));
+	}
 }
 
 void ABombermanGameMode::SpawnBlocks()
