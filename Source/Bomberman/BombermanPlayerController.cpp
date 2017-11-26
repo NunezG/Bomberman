@@ -25,10 +25,15 @@ void ABombermanPlayerController::SetupInputComponent()
 	//Bind keyboard mappings based on playerID
 	int32 pID =	GetLocalPlayer()->GetControllerId();
 
-	InputComponent->BindAxis("MoveForward" + pID, this, &ABombermanPlayerController::MoveForward);
-	InputComponent->BindAxis("MoveRight" + pID, this, &ABombermanPlayerController::MoveRight);
+	//Using a FString -> FName conversion
+	FString tempName = "MoveForward" + FString::FromInt(pID);
+	InputComponent->BindAxis(FName(*tempName), this, &ABombermanPlayerController::MoveForward);
 
-	InputComponent->BindAction("Use" + pID, EInputEvent::IE_Pressed, this, &ABombermanPlayerController::Use);
+	tempName = "MoveRight" + FString::FromInt(pID);
+	InputComponent->BindAxis(FName(*tempName), this, &ABombermanPlayerController::MoveRight);
+
+	tempName = "Use" + FString::FromInt(pID);
+	InputComponent->BindAction(FName(*tempName), EInputEvent::IE_Pressed, this, &ABombermanPlayerController::Use);
 }
 
 void ABombermanPlayerController::MoveForward(float axisValue)
