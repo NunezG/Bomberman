@@ -17,10 +17,8 @@ struct FTileColumns
 
 	FTileColumns()
 	{
-		for(int i = 0; i < 10; i++)
-		{
-			rows.Add(FMath::RandRange(0, 2));
-		}
+		//Empty the rows array as soon as it is made
+		rows.Empty();
 	}
 };
 
@@ -51,11 +49,18 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = Tiling)
 	int32 tileSize;
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = Tiling)
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = Tiling)
 	FVector mapCenter;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = Tiling)
+	int32 levelWidth;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = Tiling)
+	int32 levelHeight;
 
 protected:
 	//Function to read tile data from file
+	UFUNCTION(BlueprintCallable, Category = Tiling)
 	void ReadTileDataFromFile(int32 levelNumber);
 
 	//Function to spawn blocks in their correct location

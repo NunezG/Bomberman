@@ -10,6 +10,7 @@
 UENUM(BlueprintType)
 enum class EBlockType: uint8
 {
+	BT_DEFAULT=0			UMETA(DisplayName="DO NOT USE"),
 	BT_WALL=1				UMETA(DisplayName="Wall"),
 	BT_DESTRUCTIBLE=2		UMETA(DisplayName="Destructible Block"),
 	BT_SPAWN=3				UMETA(DisplayName="PlayerSpawn")

@@ -22,9 +22,6 @@ ABombermanGameMode::ABombermanGameMode()
 void ABombermanGameMode::BeginPlay()
 {
 	//Populate columns and rows
-	//We are adding defaulted here because it will change later anyway
-	columns.AddDefaulted(5);
-
 	//Read from file for the map data
 	ReadTileDataFromFile(1);
 
@@ -37,7 +34,7 @@ void ABombermanGameMode::ReadTileDataFromFile(int32 levelNumber)
 	//We are going to use the plugins folder for this because all contents of it are packaged in every build by default
 	//Get path to plugins folder and combine it with the int we get to make a level text file
 	FString levelName = FString::FromInt(levelNumber) + ".txt";
-	FString filePath = FPaths::GameContentDir() + "Maps/LevelData/" + levelName;
+	FString filePath = FPaths::ProjectContentDir() + "Maps/LevelData/" + levelName;
 
 	TArray<FString> fileData;
 	//Only go forward with this if level files exist, log result
@@ -48,6 +45,39 @@ void ABombermanGameMode::ReadTileDataFromFile(int32 levelNumber)
 	else
 	{
 		UE_LOG(LogLoad, Error, TEXT("File in LevelData not found"));
+		return;
+	}
+
+	//Assign camera height to be used for the aspect ratio later
+	levelHeight = fileData.Num();
+
+	//Empty columns array, and start assigning values
+	columns.Empty();
+
+	//Add number of columns as per fileData height
+	columns.AddDefaulted(fileData.Num());
+
+	//Add correct number of row elements to each column by getting it from the text string
+	for(int i = 0; i < columns.Num(); i++)
+	{
+		TArray<FString> blockNumbers;
+		//Split string using a comma as a divider to get int in string form
+		fileData[i].ParseIntoArrayWS(blockNumbers);
+
+		//Assign level width. Check with previous value, if it is more
+		if(blockNumbers.Num() > levelWidth)
+		{
+			levelWidth = blockNumbers.Num();
+		}
+
+		//Initialize the rows array inside current column with the correct number of elements
+		columns[i].rows.AddDefaulted(blockNumbers.Num());
+
+		//In the second loop, we will convert all values from the string to a number, and assign it to each row
+		for(int j = 0; j < columns[i].rows.Num(); j++)
+		{
+			columns[i].rows[j] = FCString::Atoi(*blockNumbers[j]);
+		}
 	}
 }
 
@@ -65,28 +95,29 @@ void ABombermanGameMode::SpawnBlocks()
 
 			//For y, we are going to add to go left to right similarly
 			float y = tilingStartPoint.Y + (j * tileSize);
-
+			
+			UWorld *world = AActor::GetWorld();
 			//Use vector using the x and y calculated earlier as location and spawn blocks
 			if(columns[i].rows[j] == 1) //Wall
 			{				
-				GetWorld()->SpawnActor<ABMBlock>(wall, FVector(x, y, tilingStartPoint.Z), FRotator());
+				world->SpawnActor<ABMBlock>(wall, FVector(x, y, tilingStartPoint.Z), FRotator(0, 0, 0));
 				continue;
 			}
 			else if(columns[i].rows[j] == 2) //Destructible
 			{
-				GetWorld()->SpawnActor<ABMBlock>(destructibleBlock, FVector(x, y, tilingStartPoint.Z), FRotator());
+				world->SpawnActor<ABMBlock>(destructibleBlock, FVector(x, y, tilingStartPoint.Z), FRotator(0, 0, 0));
 				continue;
 			}
 			else if(columns[i].rows[j] == 3) //PlayerSpawn
 			{
-				GetWorld()->SpawnActor<ABMBlock>(playerSpawnBlock, FVector(x, y, tilingStartPoint.Z), FRotator());
+				world->SpawnActor<ABMBlock>(playerSpawnBlock, FVector(x, y, tilingStartPoint.Z), FRotator(0, 0, 0));
 				continue;
 			}
 			else if(columns[i].rows[j] == 4) //Centrepoint
 			{
 				//Set this location to be a map center, and spawn a normal wall
 				mapCenter = FVector(x, y, 0);
-				GetWorld()->SpawnActor<ABMBlock>(wall, FVector(x, y, tilingStartPoint.Z), FRotator());
+				world->SpawnActor<ABMBlock>(wall, FVector(x, y, tilingStartPoint.Z), FRotator(0, 0, 0));
 				continue;
 			}			
 		}
