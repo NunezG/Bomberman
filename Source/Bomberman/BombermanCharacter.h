@@ -31,6 +31,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = Movement)
 	void PlayerInputRight(float axisValue, int32 gridSize);
 
+	//Function to be sent to blueprints if bomb is dropped (use button is pressed)
+	UFUNCTION(BlueprintImplementableEvent, Category = Bomb)
+	void BombDropped();
+
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -39,5 +43,7 @@ private:
 	/** Camera boom positioning the camera above the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
+
+	
 };
 

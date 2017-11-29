@@ -147,6 +147,11 @@ void ABombermanPlayerController::MoveRight(float axisValue)
 
 void ABombermanPlayerController::Use()
 {
+	//When Use is called, we have to send a signal that bombs can be dropped to the controlled pawn
+	if(pawn != NULL)
+	{
+		
+	}
 }
 
 bool ABombermanPlayerController::ProcessRaycast(FHitResult & outHit, FVector rayDirection)
