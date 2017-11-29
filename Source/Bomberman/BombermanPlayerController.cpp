@@ -150,7 +150,7 @@ void ABombermanPlayerController::Use()
 	//When Use is called, we have to send a signal that bombs can be dropped to the controlled pawn
 	if(pawn != NULL)
 	{
-		
+		pawn->BombDropped();
 	}
 }
 

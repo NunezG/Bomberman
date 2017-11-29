@@ -21,6 +21,10 @@ void ABMBomb::OnInit(int32 gridSize)
 	//Set tile size as obtained from player character
 	tileSize = gridSize;
 
+	UWorld* world = GetWorld();
+	//Light the fuses
+	world->GetTimerManager().SetTimer(fuseTimerHandle, this, &ABMBomb::OnExplode, fuseTime, false);
+
 	//Call the on fuse lit event so that the blueprint part of the actor can be handled
 	OnFuseLit();
 }
@@ -29,10 +33,6 @@ void ABMBomb::OnInit(int32 gridSize)
 void ABMBomb::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	UWorld* world = GetWorld();
-	//Start the timer
-	world->GetTimerManager().SetTimer(fuseTimerHandle, this, &ABMBomb::OnExplode, fuseTime, false);
 }
 
 // Called every frame
