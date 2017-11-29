@@ -16,6 +16,15 @@ ABMBomb::ABMBomb()
 	mesh->SetupAttachment(RootComponent);
 }
 
+void ABMBomb::OnInit(int32 gridSize)
+{
+	//Set tile size as obtained from player character
+	tileSize = gridSize;
+
+	//Call the on fuse lit event so that the blueprint part of the actor can be handled
+	OnFuseLit();
+}
+
 // Called when the game starts or when spawned
 void ABMBomb::BeginPlay()
 {
