@@ -45,7 +45,7 @@ void ABombermanGameMode::ReadTileDataFromFile(int32 levelNumber)
 	}
 
 	//Assign camera height to be used for the aspect ratio later
-	levelHeight = fileData.Num();
+	levelHeight = fileData.Num() + 1;
 
 	//Empty columns array, and start assigning values
 	columns.Empty();
@@ -61,9 +61,9 @@ void ABombermanGameMode::ReadTileDataFromFile(int32 levelNumber)
 		fileData[i].ParseIntoArrayWS(blockNumbers);
 
 		//Assign level width. Check with previous value, if it is more
-		if(blockNumbers.Num() > levelWidth)
+		if(blockNumbers.Num() + 1 > levelWidth)
 		{
-			levelWidth = blockNumbers.Num();
+			levelWidth = blockNumbers.Num() + 1;
 		}
 
 		//Initialize the rows array inside current column with the correct number of elements

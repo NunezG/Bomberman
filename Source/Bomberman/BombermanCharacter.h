@@ -22,6 +22,15 @@ public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Tiling)
+	int32 tileSize;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = Movement)
+	void PlayerInputForward(float axisValue, int32 gridSize);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = Movement)
+	void PlayerInputRight(float axisValue, int32 gridSize);
+
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

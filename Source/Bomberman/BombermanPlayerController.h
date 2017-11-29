@@ -7,7 +7,7 @@
 #include "BombermanPlayerController.generated.h"
 
 UCLASS()
-class ABombermanPlayerController : public APlayerController
+class ABombermanPlayerController: public APlayerController
 {
 	GENERATED_BODY()
 
@@ -26,6 +26,14 @@ protected:
 
 	//Action button function
 	void Use();
+
+private:
+	int32 tileSize;
+
+	class ABombermanCharacter *pawn;
+
+	//Function to process raycast
+	bool ProcessRaycast(FHitResult &outHit, FVector rayDirection);
+
+	bool bIsMovingForward, bIsMovingRight;
 };
-
-
