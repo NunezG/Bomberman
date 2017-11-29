@@ -22,7 +22,7 @@ public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Tiling)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Tiling)
 	int32 tileSize;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = Movement)
