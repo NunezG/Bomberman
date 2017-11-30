@@ -29,3 +29,6 @@ bool ULocalMPViewportClient::InputKey(FViewport* Viewport, int32 ControllerId, F
 	}
 }
 ```
+
+### Textures for beam particle
+https://wiki.unrealengine.com/Beam_Particle_(Tutorial)
