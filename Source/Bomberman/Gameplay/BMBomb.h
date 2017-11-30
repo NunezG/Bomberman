@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Engine.h"
 #include "GameFramework/Actor.h"
 #include "BMBomb.generated.h"
 
@@ -47,6 +47,10 @@ protected:
 
 	//Timer handle for fuse
 	FTimerHandle fuseTimerHandle;
+
+	//Function to take the direction of the bomb, and then calculate the hits/distance of bomb blast radius for visual feedback
+	UFUNCTION(BlueprintCallable, Category = Bomb)
+	AActor* CalculateBlastHit(FVector direction, FVector &target);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = Bomb)
 	void OnExplode();
