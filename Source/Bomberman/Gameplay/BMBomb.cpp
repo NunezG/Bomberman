@@ -48,7 +48,7 @@ AActor* ABMBomb::CalculateBlastHit(FVector direction, FVector & target)
 
 	//Setup collision parameters to ignore pawn which is casting the ray
 	FCollisionQueryParams collisionParameters;
-	collisionParameters.AddIgnoredActor(this);
+	//collisionParameters.AddIgnoredActor(this);
 
 	//Actual line trace
 	GetWorld()->LineTraceSingleByChannel(hit, startLocation, endLocation, ECollisionChannel::ECC_MAX, collisionParameters);

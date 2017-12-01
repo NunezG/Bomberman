@@ -41,6 +41,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = Bomb)
 	float fuseTime = 5.0f;
 
+	UFUNCTION(BlueprintImplementableEvent, Category = Bomb)
+	void OnExplode();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -51,9 +54,6 @@ protected:
 	//Function to take the direction of the bomb, and then calculate the hits/distance of bomb blast radius for visual feedback
 	UFUNCTION(BlueprintCallable, Category = Bomb)
 	AActor* CalculateBlastHit(FVector direction, FVector &target);
-
-	UFUNCTION(BlueprintImplementableEvent, Category = Bomb)
-	void OnExplode();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
