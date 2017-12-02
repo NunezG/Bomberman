@@ -2,11 +2,11 @@
 
 ### Passing keyboard events to all players
 https://wiki.unrealengine.com/Local_Multiplayer_Tips
-Specifically, in [BombermanViewportClient](/Source/Bomberman/Utilities/BombermanViewportCilent.h)
+Specifically, in [BombermanViewportClient](/Source/Bomberman/Utilities/BombermanViewportClient.h)
 ```
 virtual bool InputKey(FViewport* Viewport, int32 ControllerId, FKey Key, EInputEvent EventType, float AmountDepressed = 1.f, bool bGamepad = false) override;
 ```
-and in [BombermanViewportCilent.cpp](/Source/Bomberman/Utilities/BombermanViewportCilent.cpp)
+and in [BombermanViewportCilent.cpp](/Source/Bomberman/Utilities/BombermanViewportClient.cpp)
 ```
 bool ULocalMPViewportClient::InputKey(FViewport* Viewport, int32 ControllerId, FKey Key, EInputEvent EventType, float AmountDepressed, bool bGamepad)
 {
